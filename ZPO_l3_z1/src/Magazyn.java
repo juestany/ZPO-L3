@@ -1,43 +1,43 @@
-import java.util.ArrayList;
+import java.util.*;
 public class Magazyn {
-    public ArrayList<Produkt> listaProduktow;
+    public Map<String, Produkt> listaProduktow;
 
-    public Magazyn() {
-        /**
-         * Konstruktor
-         */
-        listaProduktow = new ArrayList<>();
+    public Magazyn () {
+        listaProduktow = new HashMap<>();
     }
-
     public void dodajProdukt(Produkt produkt) {
         /**
-         * Metoda dodająca produkt będący implementacją interfejsu Produkt do listy.
+         * Metoda dodająca produkt będący implementacją interfejsu Produkt do mapy.
          * @param produkt (Produkt)
          */
-        listaProduktow.add(produkt);
+        listaProduktow.put(produkt.pobierzNazwe(), produkt);
     }
 
-    public ArrayList<Produkt> pokazProdukty() {
+    public void pokazProdukty() {
         /**
-         * Metoda przedstawiająca surowe produkty w liście.
+         * Metoda przedstawiająca produkty w mapie jako nazwa produktu: produkt.
          */
-        return this.listaProduktow;
+        for (Map.Entry<String, Produkt> para_produkt : listaProduktow.entrySet()) {
+
+            System.out.print(para_produkt.getKey() + ":");
+            System.out.println(para_produkt.getValue());
+        }
     }
 
-    public void usunProdukt(int i) {
+    public void usunProdukt(String nazwa) {
         /**
-         * Metoda usuwająca produkt będący implementacją interfejsu Produkt do listy za pomocą indeksu.
-         * @param i (int) indeks do usunięcia
+         * Metoda usuwająca produkt będący implementacją interfejsu Produkt do listy za pomocą klucza.
+         * @param nazwa (String) klucz produktu (nazwa) do usunięcia
          */
-        listaProduktow.remove(i);
+        listaProduktow.remove(nazwa);
     }
 
-    public Produkt pobierzProdukt(int i) {
+    public Produkt pobierzProdukt(String nazwa) {
         /**
          * Metoda zwracająca produkt będący implementacją interfejsu Produkt do listy.
-         * @param i (int) indeks
+         * @param nazwa (String) klucz produktu
          */
-        return listaProduktow.get(i);
+        return listaProduktow.get(nazwa);
     }
 
     public void przedstawProdukty() {
@@ -49,9 +49,10 @@ public class Magazyn {
             System.out.println("Magazyn jest pusty.");
             return;
         }
-        for (Produkt produkt : this.listaProduktow) {
-            System.out.println(produkt);
-            System.out.println("Nazwa produktu: " + produkt.pobierzNazwe());
+        for (Map.Entry<String, Produkt> entry : listaProduktow.entrySet()) {
+            Produkt produkt = entry.getValue();
+
+            System.out.println("Nazwa produktu: " + entry.getKey());
             System.out.println("Cena produktu: " + produkt.pobierzCene());
             System.out.println("Ilość produktu: " + produkt.pobierzIlosc() + "\n");
         }

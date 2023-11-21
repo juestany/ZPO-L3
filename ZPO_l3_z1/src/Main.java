@@ -11,7 +11,7 @@ public class Main {
 
         magazyn.przedstawProdukty();
 
-        magazyn.usunProdukt(2);
+        magazyn.usunProdukt("Jajeczny");
         magazyn.przedstawProdukty();
     }
 }
